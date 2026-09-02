@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Form registration</title>
+  </head>
+  <body>
+    <!--
+      This file exists only so Netlify's build-time form detection registers the
+      "project-enquiry" form. It is never shown to visitors — the real form lives
+      in src/routes/contact.tsx and posts to this path.
+    -->
+    <form name="project-enquiry" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="bot-field" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="business" />
+      <input type="tel" name="phone" />
+      <input type="text" name="project" />
+      <input type="text" name="timeline" />
+      <input type="text" name="stack" />
+      <textarea name="message"></textarea>
+    </form>
+  </body>
+</html>

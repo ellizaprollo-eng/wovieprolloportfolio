@@ -1,0 +1,267 @@
+@import "tailwindcss" source("../");
+
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ---------------------------------------------------------------------------
+   Theme: "Signal Room" — a dark operations-console palette.
+   Cool near-black ground, paper-white ink, warm amber signal accent for the
+   things that move (leads, triggers, actions) and a cool wire tone for the
+   connective tissue between them.
+--------------------------------------------------------------------------- */
+
+:root {
+  --ink-900: oklch(0.155 0.014 254);
+  --ink-850: oklch(0.185 0.015 254);
+  --ink-800: oklch(0.215 0.016 254);
+  --ink-700: oklch(0.275 0.018 254);
+  --ink-600: oklch(0.36 0.019 254);
+  --paper: oklch(0.965 0.005 254);
+  --paper-dim: oklch(0.78 0.012 254);
+  --paper-faint: oklch(0.63 0.014 254);
+
+  --signal: oklch(0.795 0.148 74);
+  --signal-deep: oklch(0.66 0.135 62);
+  --wire: oklch(0.735 0.088 205);
+  --wire-deep: oklch(0.55 0.082 214);
+  --moss: oklch(0.75 0.115 152);
+
+  /* shadcn token surface, mapped onto the palette above */
+  --background: var(--ink-900);
+  --foreground: var(--paper);
+  --card: var(--ink-850);
+  --card-foreground: var(--paper);
+  --popover: var(--ink-800);
+  --popover-foreground: var(--paper);
+  --primary: var(--signal);
+  --primary-foreground: oklch(0.19 0.03 70);
+  --secondary: var(--ink-800);
+  --secondary-foreground: var(--paper-dim);
+  --muted: var(--ink-800);
+  --muted-foreground: var(--paper-faint);
+  --accent: var(--ink-700);
+  --accent-foreground: var(--paper);
+  --destructive: oklch(0.63 0.19 25);
+  --destructive-foreground: oklch(0.97 0.01 25);
+  --border: var(--ink-700);
+  --input: var(--ink-700);
+  --ring: var(--signal-deep);
+  --radius: 0.5rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-ink-900: var(--ink-900);
+  --color-ink-850: var(--ink-850);
+  --color-ink-800: var(--ink-800);
+  --color-ink-700: var(--ink-700);
+  --color-ink-600: var(--ink-600);
+  --color-paper: var(--paper);
+  --color-paper-dim: var(--paper-dim);
+  --color-paper-faint: var(--paper-faint);
+  --color-signal: var(--signal);
+  --color-signal-deep: var(--signal-deep);
+  --color-wire: var(--wire);
+  --color-wire-deep: var(--wire-deep);
+  --color-moss: var(--moss);
+
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Karla", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --radius-sm: calc(var(--radius) - 3px);
+  --radius-md: calc(var(--radius) - 1px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 6px);
+
+  --animate-drift: drift 2.4s linear infinite;
+  --animate-rise: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-breathe: breathe 3.6s ease-in-out infinite;
+}
+
+@keyframes drift {
+  to {
+    stroke-dashoffset: -32;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes railflow {
+  0% {
+    transform: translateY(-110%);
+  }
+  100% {
+    transform: translateY(460%);
+  }
+}
+
+@keyframes travel {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(0, var(--travel-distance, 320px), 0);
+    opacity: 0;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply m-0 bg-background text-foreground font-sans antialiased;
+    font-synthesis-weight: none;
+  }
+
+  ::selection {
+    background: var(--signal);
+    color: oklch(0.19 0.03 70);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: 3px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@utility label-mono {
+  @apply font-mono text-[0.6875rem] uppercase tracking-[0.18em];
+}
+
+/* Faint engineering-grid atmosphere; fixed layer, never on a scroller. */
+@utility grid-field {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--ink-600) 42%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--ink-600) 42%, transparent) 1px, transparent 1px);
+  background-size: 68px 68px;
+}
+
+@utility hero-glow {
+  background-image: radial-gradient(
+    120% 100% at 15% 0%,
+    color-mix(in oklab, var(--signal) 9%, transparent),
+    transparent 62%
+  );
+}
+
+@utility hairline {
+  @apply border-t border-ink-700;
+}
+
+@utility stagger {
+  animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.prose-signal {
+  color: var(--paper-dim);
+  line-height: 1.72;
+}
+.prose-signal h2 {
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+  margin: 2.25rem 0 0.75rem;
+}
+.prose-signal h3 {
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: 1.075rem;
+  margin: 1.75rem 0 0.5rem;
+}
+.prose-signal p {
+  margin: 0 0 1rem;
+}
+.prose-signal ul,
+.prose-signal ol {
+  margin: 0 0 1.25rem;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: 0.4rem;
+}
+.prose-signal li::marker {
+  color: var(--signal-deep);
+}
+.prose-signal strong {
+  color: var(--paper);
+  font-weight: 700;
+}
+.prose-signal code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--ink-800);
+  border: 1px solid var(--ink-700);
+  border-radius: 4px;
+  padding: 0.1rem 0.35rem;
+}
+.prose-signal a {
+  color: var(--signal);
+  text-underline-offset: 3px;
+}
