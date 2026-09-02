@@ -63,8 +63,13 @@ These are content constraints the site was built around, not stylistic preferenc
 3. **No fake screenshots.** The panels in `mockups.tsx` are diagrams, and each one renders
    a `MockHeader` note saying so ("Illustrative — sample data", "Diagram of the build").
    Keep that note if you edit a panel; remove it only when the panel shows a real capture.
-4. **No stock headshot.** The template's placeholder photo was deleted; identity is carried
-   by the `WP` monogram in the nav. Add a photo only when a real one is supplied.
+4. **No stock headshot.** The template's placeholder photo was deleted. The only photo on
+   the site is `public/wovie-prollo.png`, a real supplied studio portrait (framing-cropped
+   to 4:5 at 514x643, subject centred), shown large in the About page header through the
+   Netlify Image CDN (`/.netlify/images`) and captioned "Photograph". Its white studio
+   backdrop is intentional: the frame sits on a `bg-paper` plate and fades into `ink-850`
+   at the bottom edge so it reads as part of the console, not a pasted rectangle. Elsewhere identity is carried by the `WP` monogram in the nav. Never
+   substitute a stock or generated image for it.
 
 ## Design system
 
